@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        >
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="门店名称"
+            android:layout_gravity="center"
+            android:textColor="@color/black99"
+            android:textSize="14dp" />
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center|right"
+            android:paddingLeft="15dp"
+            android:hint="青秀万达"
+            android:layout_weight="1"
+            android:focusable="false"
+            android:textColorHint="@color/gray11"
+            android:textColor="@color/black99"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/return_right_icon1"
+            />
+    </LinearLayout>
+
+    <TextView style="@style/width_line_style4" />
+</LinearLayout>

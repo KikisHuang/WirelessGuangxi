@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">无限广西</string>
+    <string name="appfinish">再按一次退出应用</string>
+    <string name="my_order">我的订单</string>
+    <string name="my_datastatis">数据统计</string>
+    <string name="my_manage">我的管理</string>
+    <string name="all">全部</string>
+    <string name="wait_pay">待付款</string>
+    <string name="over_pay">已付款</string>
+    <string name="wait_refund">待退款</string>
+    <string name="over_refund">已退款</string>
+    <string name="take_address">收货地址</string>
+    <string name="order_number">订单编号</string>
+    <string name="order_time">下单时间</string>
+    <string name="total">店铺合计</string>
+    <string name="total2">总计</string>
+    <string name="open_shop">店铺 [已开业] ,点击右侧开关调整店铺状态</string>
+    <string name="closen_shop">店铺 [未开业] ,点击右侧开关调整店铺状态</string>
+    <string name="VersonUp">版本升级中请稍后...</string>
+    <string name="update_lead">新版本更新中，请耐心等待..</string>
+    <string name="sold_out">未上架</string>
+    <string name="putaway">已上架</string>
+    <string name="unputaway">已下架</string>
+</resources>

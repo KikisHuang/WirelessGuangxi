@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ripple="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_corners"
+    android:orientation="vertical"
+    android:paddingBottom="20dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:text="优惠券金额"
+            android:textColor="@color/black11"
+            android:textSize="13dp" />
+
+        <EditText
+            android:id="@+id/cou_sum_ed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:inputType="number"
+            android:gravity="right|center"
+            android:hint="填写优惠券金额"
+            android:paddingRight="30dp"
+            android:textColor="@color/black11"
+            android:textColorHint="@color/content6"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <TextView style="@style/width_line_style2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:text="设置最低消费"
+            android:textColor="@color/black11"
+            android:textSize="13dp" />
+
+        <EditText
+            android:id="@+id/minimum_charge_ed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:gravity="right|center"
+            android:inputType="number|numberDecimal"
+            android:hint="填写最低优消费使用金额"
+            android:paddingRight="30dp"
+            android:textColor="@color/black11"
+            android:textColorHint="@color/content6"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <TextView style="@style/width_line_style10_2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:text="设置到期时间"
+            android:textColor="@color/black11"
+            android:textSize="13dp" />
+
+        <EditText
+            android:id="@+id/end_time_ed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:focusable="false"
+            android:gravity="right|center"
+            android:hint="设置到期时间"
+            android:textColor="@color/black11"
+            android:textColorHint="@color/content6"
+            android:textSize="13dp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@mipmap/return_right_icon" />
+    </LinearLayout>
+
+    <TextView style="@style/width_line_style2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:text="选择可使用优惠券分类"
+            android:textColor="@color/black11"
+            android:textSize="13dp" />
+
+        <EditText
+            android:id="@+id/coupon_type_ed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:focusable="false"
+            android:gravity="right|center"
+            android:hint="选择分类"
+            android:textColor="@color/black11"
+            android:textColorHint="@color/content6"
+            android:textSize="13dp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@mipmap/return_right_icon" />
+    </LinearLayout>
+
+    <TextView style="@style/width_line_style2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:text="优惠券描述"
+            android:textColor="@color/black11"
+            android:textSize="13dp" />
+
+        <EditText
+            android:id="@+id/coupon_detail_ed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:gravity="right|center"
+            android:hint="请输入优惠券描述"
+            android:paddingRight="30dp"
+            android:textColor="@color/black11"
+            android:textColorHint="@color/content6"
+            android:textSize="13dp" />
+    </LinearLayout>
+
+    <TextView style="@style/width_line_style10_2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center|left"
+            android:text="上架状态"
+            android:textColor="@color/black11"
+            android:textSize="13dp" />
+
+        <EditText
+            android:id="@+id/coupon_status_ed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:focusable="false"
+            android:gravity="right|center"
+            android:hint="是否启用优惠券"
+            android:textColor="@color/black11"
+            android:textColorHint="@color/content6"
+            android:textSize="13dp" />
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:src="@mipmap/return_right_icon" />
+    </LinearLayout>
+
+    <wlgx.com.kikis.view.RippleView
+        android:id="@+id/add_bt"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center|bottom"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/red1_bt_normal"
+        android:gravity="center"
+        android:text="添加"
+        android:textColor="@color/white"
+        android:textSize="16dp" />
+</LinearLayout>

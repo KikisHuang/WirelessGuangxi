@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="wlgx.com.kikis">
+
+
+    <!-- Required -->
+    <permission
+        android:name="wlgx.com.kikis.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"></uses-permission>
+
+    <!--定位包、导航包需要的额外权限（注：基础权限也需要）-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--<uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+
+    <!-- Required  一些系统要求的权限，如访问网络等-->
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="wlgx.com.kikis.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Optional for location -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+
+    <application
+        android:name="wlgx.com.kikis.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/wxgx_icon"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:launchMode="singleTask"
+        android:supportsRtl="true"
+        android:theme="@style/BaseTheme">
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="ee6c90f2b3a1e51acab48d36cc005927" />
+
+        <activity
+            android:name="wlgx.com.kikis.activity.MainActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="wlgx.com.kikis.utils.MyGlideModule"
+            android:value="GlideModule" />
+        <!-- 测试页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.TestActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <!-- 欢迎页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.WelcomeActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 优惠券页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.CouponSettingActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 登录页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.LoginActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 订单详情页面 -->
+        <activity
+            android:name=".activity.OrderDetailsActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 退款订单详情页面 -->
+        <activity
+            android:name=".activity.RefundOrderDetailsActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 我的页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.MyActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 修改密、手机页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.ChangeActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 订单页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.MyOrderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent"></activity>
+        <!-- 申请入驻页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.ApplicationInActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <!-- 照片选择框架页面 -->
+        <activity
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+
+        <!-- 商铺资料修改页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.ChangeShopDataActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <!-- 数据统计页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.StatisActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <!-- 资质审核页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.ShopCheckActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <!-- 我的管理员页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.AdminActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 店铺类型页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.ShopTypeActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 门店管理页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.ShopListActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 添加门店页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.AddShopActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- GPS地图定位页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.LocationActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 商品上传页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.GoodsUploadActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 商品分类选择页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.GoodsTypeActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 商品分类选择页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.GoodsListActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <!-- 商品富文本编辑页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.GoodsDetailActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <!-- 上传照片页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.UploadPhotoActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 商铺预览页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.ShopPreviewActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 提现资料页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.WithdrawActivity"
+            android:screenOrientation="portrait"></activity>
+        <!-- 找回密码页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.forgetPassActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <!-- 照片裁剪页面 -->
+        <activity
+            android:name="wlgx.com.kikis.activity.IconCutActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <!-- Rich push 核心功能 since 2.0.6-->
+        <activity
+            android:name="cn.jpush.android.ui.PopWinActivity"
+            android:exported="false"
+            android:theme="@style/MyDialogStyle"></activity>
+
+        <!-- Required SDK核心功能-->
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="wlgx.com.kikis" />
+            </intent-filter>
+        </activity>
+
+        <!-- Required SDK 核心功能-->
+        <!-- 可配置android:process参数将PushService放在其他进程中 -->
+        <!--   <service
+               android:name="cn.jpush.android.service.PushService"
+               android:process=":mult"
+               android:exported="false">
+               <intent-filter>
+                   <action android:name="cn.jpush.android.intent.REGISTER" />
+                   <action android:name="cn.jpush.android.intent.REPORT" />
+                   <action android:name="cn.jpush.android.intent.PushService" />
+                   <action android:name="cn.jpush.android.intent.PUSH_TIME" />
+               </intent-filter>
+           </service>-->
+
+        <!-- since 1.8.0 option 可选项。用于同一设备中不同应用的JPush服务相互拉起的功能。 -->
+        <!-- 若不启用该功能可删除该组件，将不拉起其他应用也不能被其他应用拉起 -->
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.DaemonService" />
+                <category android:name="wlgx.com.kikis" />
+            </intent-filter>
+
+        </service>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.PushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY" />   <!--Required  显示通知栏 -->
+                <category android:name="wlgx.com.kikis" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+            <!-- Optional -->
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Required SDK核心功能-->
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false" />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="wlgx.com.kikis.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <!--User defined.  For test only  用户自定义的广播接收器-->
+        <receiver
+            android:name="wlgx.com.kikis.receiver.JpushReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK" /> <!--Optional 用户接受Rich Push Javascript 回调函数的intent-->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <category android:name="wlgx.com.kikis" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 进程守护-->
+        <service
+            android:name="wlgx.com.kikis.server.MyJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
+    </application>
+
+</manifest>

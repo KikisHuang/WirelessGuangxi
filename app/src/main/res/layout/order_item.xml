@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@null"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/goods_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="商品标题"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <TextView
+                android:id="@+id/goods_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="进行中"
+                android:textColor="@color/gray4"
+                android:textSize="13dp" />
+        </RelativeLayout>
+
+        <TextView style="@style/width_line_style2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/goods_info_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:text="姓名：西想"
+                    android:textColor="@color/black99"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/user_contact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:text="联系方式：13157845245"
+                    android:textColor="@color/black99"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/user_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="7dp"
+                    android:text="详细地址：青秀万达"
+                    android:ellipsize="end"
+                    android:maxEms="18"
+                    android:singleLine="true"
+                    android:textColor="@color/black99"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/order_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="预约时间：2017-05-05   10:00"
+                    android:ellipsize="end"
+                    android:maxEms="13"
+                    android:singleLine="true"
+                    android:textColor="@color/black99"
+                    android:textSize="12dp" />
+                <!-- <include
+                     android:id="@+id/goods_info_1"
+                     layout="@layout/goods_info_include"
+                     android:visibility="gone"></include>
+
+                 <include
+                     android:id="@+id/goods_info_2"
+                     layout="@layout/goods_info_include"
+                     android:visibility="gone"></include>
+
+                 <include
+                     android:id="@+id/goods_info_3"
+                     layout="@layout/goods_info_include"
+                     android:visibility="gone"></include>-->
+
+            </LinearLayout>
+
+            <TextView style="@style/width_line_style2" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/order_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center"
+                    android:text="订单号："
+                    android:ellipsize="end"
+                    android:maxEms="13"
+                    android:singleLine="true"
+                    android:textColor="@color/black99"
+                    android:textSize="12dp" />
+
+                <Button
+                    android:id="@+id/goods_button"
+                    android:layout_width="70dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center|right"
+                    android:background="@drawable/red1_bt_normal"
+                    android:text="去评价"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
