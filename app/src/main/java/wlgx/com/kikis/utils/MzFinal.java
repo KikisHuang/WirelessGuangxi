@@ -259,6 +259,32 @@ public class MzFinal {
      * 获取自己的id接口
      */
     public static final String GETMYID = "shopAdmin/getMyId.app";
+    /**
+     * 商家接单接口
+     */
+    public static final String RECEIVEENTITY = "shopManage/order/modify/receiveEntity.app";
+
+    /**
+     * 获取指定商家 待处理退款订单数 参数：key=身份标识接口
+     */
+    public static final String GETMYREFUNDORDERCOUNT = "refundManage/select/getMyRefundOrderCount.app";
+    /**
+     *  获取指定商家 待接单(已付款)订单数(角标数) 参数：key=身份标识接口
+     */
+    public static final String GETMYPAYORDERCOUNT = "shopManage/order/select/getMyPayOrderCount.app";
+
+    /**
+     *  对账记录接口
+     */
+    public static final String ORDERBILL = "shopAdmin/select/orderBill.app";
+    /**
+     *  结算记录 接口
+     */
+    public static final String SETTLEMENTRECORD = "shopAdmin/select/settlementRecord.app";
+    /**
+     *  店铺设置收款二维码 接口
+     */
+    public static final String SHOPPAYQCIMG = "shopAdmin/modify/shopPayQcImg.app";
 
     /**
      * 商家订单页面;

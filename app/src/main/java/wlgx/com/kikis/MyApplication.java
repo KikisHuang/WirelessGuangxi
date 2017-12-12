@@ -24,6 +24,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+//        MultiDex.install(this) ;
         //设置开启日志,发布时请关闭日志
         JPushInterface.setDebugMode(true);
         //初始化

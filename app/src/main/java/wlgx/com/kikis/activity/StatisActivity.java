@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PieChartData;
@@ -212,10 +214,17 @@ public class StatisActivity extends InitActivity {
                                         for (int j = 0; j < plist.size(); j++) {
                                             View view = LayoutInflater.from(StatisActivity.this).inflate(R.layout.statis_progress_include, null);
                                             TextView tv1 = (TextView) view.findViewById(R.id.tv1);
-                                            ImageView im = (ImageView) view.findViewById(R.id.img);
+                                            CircleImageView im = (CircleImageView) view.findViewById(R.id.img);
 
-                                            im.setImageResource(MzFinal.piechartDrawable[j]);
-                                            tv1.setText(plist.get(j).getName());
+                                            if (plist.get(j).getHeadImg() == null || plist.get(j).getHeadImg().equals(""))
+                                                im.setBackgroundResource(MzFinal.piechartDrawable[j]);
+                                            else
+                                                Glide.with(StatisActivity.this).load(plist.get(j).getHeadImg()).into(im);
+
+                                            if (plist.get(j).getName() == null || plist.get(j).getName().equals(""))
+                                                tv1.setText("匿名用户");
+                                            else
+                                                tv1.setText(plist.get(j).getName());
 
                                             TextView tv2 = (TextView) view.findViewById(R.id.tv2);
                                             ProgressBar pb1 = (ProgressBar) view.findViewById(R.id.progressbar);

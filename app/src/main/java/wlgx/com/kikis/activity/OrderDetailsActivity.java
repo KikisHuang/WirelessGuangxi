@@ -2,6 +2,7 @@ package wlgx.com.kikis.activity;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import okhttp3.Call;
 import wlgx.com.kikis.R;
 import wlgx.com.kikis.bean.GoodsDetailsBean;
 import wlgx.com.kikis.bean.McOrderGoodsMappingsBean;
+import wlgx.com.kikis.fragment.son.OverOrderFragment;
 import wlgx.com.kikis.save.SPreferences;
 import wlgx.com.kikis.utils.MzFinal;
 import wlgx.com.kikis.utils.StringUtil;
@@ -28,19 +30,22 @@ import wlgx.com.kikis.utils.ToastUtil;
 import static wlgx.com.kikis.utils.JsonUtils.getCode;
 import static wlgx.com.kikis.utils.JsonUtils.getJsonOb;
 import static wlgx.com.kikis.utils.SynUtils.setTitles;
+import static wlgx.com.kikis.view.CustomProgress.Cancle;
+import static wlgx.com.kikis.view.CustomProgress.Show;
 
 /**
  * Created by lian on 2017/9/13.
  */
-public class OrderDetailsActivity extends InitActivity {
+public class OrderDetailsActivity extends InitActivity implements View.OnClickListener {
 
     private TextView address_tv, shop_name_tv, goods_price_tv, express_fee_name, express_fee_tv, total_price, order_number, order_time, total_prices;
     private String id = "";
     private LinearLayout goods_info_layout;
+    private Button pass_bt;
 
     @Override
     protected void click() {
-
+        pass_bt.setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +60,7 @@ public class OrderDetailsActivity extends InitActivity {
         express_fee_name = f(R.id.express_fee_name);
         express_fee_tv = f(R.id.express_fee_tv);
         total_price = f(R.id.total_price);
+        pass_bt = f(R.id.pass_bt);
 
         order_number = f(R.id.order_number);
         order_time = f(R.id.order_time);
@@ -107,7 +113,10 @@ public class OrderDetailsActivity extends InitActivity {
                                 JSONObject ob = getJsonOb(response);
                                 GoodsDetailsBean gb = new Gson().fromJson(String.valueOf(ob), GoodsDetailsBean.class);
 
-                                address_tv.setText(getResources().getString(R.string.take_address) + "：" + StringUtil.checkNull(gb.getAddressInfo()) + " " +StringUtil.checkNull( gb.getAddressInfoName() )+ " " + StringUtil.checkNull(gb.getAddressInfoPhone()));
+                                if (gb.getStatus() == 1)
+                                    pass_bt.setVisibility(View.VISIBLE);
+
+                                address_tv.setText(getResources().getString(R.string.take_address) + "：" + StringUtil.checkNull(gb.getAddressInfo()) + " " + StringUtil.checkNull(gb.getAddressInfoName()) + " " + StringUtil.checkNull(gb.getAddressInfoPhone()));
                                 shop_name_tv.setText(StringUtil.checkNull(gb.getMcShop().getName()));
                                 goods_price_tv.setText(String.valueOf(gb.getPrice()));
                                 order_number.setText(getResources().getString(R.string.order_number) + "：" + StringUtil.checkNull(gb.getOrderNumber()));
@@ -134,6 +143,7 @@ public class OrderDetailsActivity extends InitActivity {
                                     goods_info_layout.addView(view);
 
                                 }
+
                                 String all = String.valueOf(gb.getPrice() + freight);
 
                                 total_price.setText("¥" + all);
@@ -149,5 +159,53 @@ public class OrderDetailsActivity extends InitActivity {
                     }
                 });
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.pass_bt:
+                Show(OrderDetailsActivity.this, "", true, null);
+                OrderReceiving();
+                break;
+        }
+    }
+
+    private void OrderReceiving() {
+        /**
+         * 商家接单;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URL + MzFinal.RECEIVEENTITY)
+                .addParams("id", id)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(OrderDetailsActivity.this, "网络不顺畅...");
+                        Cancle();
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                ToastUtil.toast2_bottom(OrderDetailsActivity.this, "已接单！");
+                                if(OverOrderFragment.updata!=null)
+                                    OverOrderFragment.updata.onUpData();
+                                finish();
+                            } else
+                                ToastUtil.ToastErrorMsg(OrderDetailsActivity.this, response, code);
+
+                            Cancle();
+                        } catch (Exception e) {
+                            Cancle();
+                        }
+                    }
+                });
     }
 }

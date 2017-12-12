@@ -20,6 +20,7 @@ import cn.jpush.android.api.JPushInterface;
 import wlgx.com.kikis.R;
 import wlgx.com.kikis.activity.MainActivity;
 import wlgx.com.kikis.activity.MyOrderActivity;
+import wlgx.com.kikis.fragment.HomeFragment;
 import wlgx.com.kikis.fragment.son.AllOrderFragment;
 import wlgx.com.kikis.fragment.son.OverOrderFragment;
 import wlgx.com.kikis.fragment.son.OverRefundOrderFragment;
@@ -58,6 +59,9 @@ public class JpushReceiver extends BroadcastReceiver {
             Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
 
             String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
+            if (HomeFragment.listener != null)
+                HomeFragment.listener.onUpdata();
+
             Log.i(TAG, "接受到的数据 === " + extras);
             try {
 

@@ -11,12 +11,12 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center|bottom"
-            android:src="@drawable/dot_pie3" />
+            android:background="@drawable/dot_pie3" />
 
         <FrameLayout
             android:layout_width="match_parent"

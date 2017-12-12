@@ -100,16 +100,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
      * 检查通知栏权限;
      */
     private void checkNotify() {
-
-        if (isNotificationEnabled(getApplicationContext())) {
-            Log.i(TAG, "通知栏消息推送权限已获得..");
-        } else {
-            new AlertDialog(this).builder().setCancelable(true).setTitle("提示").setMsg("您未开启通知，一些最新动态将无法及时通知您，是否去开启？").setNegativeButton("取消", null).setPositiveButton("去开启", new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    SynUtils.getAppDetailSettingIntent(MainActivity.this);
-                }
-            }).show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            if (isNotificationEnabled(getApplicationContext())) {
+                Log.i(TAG, "通知栏消息推送权限已获得..");
+            } else {
+                new AlertDialog(this).builder().setCancelable(true).setTitle("提示").setMsg("您未开启通知，一些最新动态将无法及时通知您，是否去开启？").setNegativeButton("取消", null).setPositiveButton("去开启", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        SynUtils.getAppDetailSettingIntent(MainActivity.this);
+                    }
+                }).show();
+            }
         }
     }
 

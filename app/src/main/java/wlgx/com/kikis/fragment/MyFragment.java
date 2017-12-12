@@ -26,7 +26,7 @@ import java.util.Set;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
 import wlgx.com.kikis.R;
 import wlgx.com.kikis.activity.MainActivity;
@@ -74,7 +74,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, My
     public static MyFragmetnListener listener;
     private TextView shop_status_tv, shop_name;
     private int ShopStatus = -1;
-    private ImageView on_off_img, shop_icon;
+    private ImageView on_off_img;
+    private CircleImageView shop_icon;
     public static onPhotoCutListener photolistener;
 
     @Override
@@ -308,7 +309,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener, My
                                 if (StringUtil.cleanNull(imurl))
                                     Glide.with(getActivity()).load(R.mipmap.test_icon).into(shop_icon);
                                 else
-                                    Glide.with(getActivity()).load(bb.getLogoUrl()).bitmapTransform(new CropCircleTransformation(getActivity())).into(shop_icon);
+                                    Glide.with(getActivity()).load(bb.getLogoUrl()).into(shop_icon);
 
                                 String text = "";
                                 //ForegroundColorSpan 为文字前景色，BackgroundColorSpan为文字背景色

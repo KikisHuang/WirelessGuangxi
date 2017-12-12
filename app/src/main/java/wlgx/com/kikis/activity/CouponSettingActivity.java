@@ -46,6 +46,7 @@ public class CouponSettingActivity extends InitActivity implements View.OnClickL
     private ImageView add_icon;
     private List<CouponBean> list;
     private ItemClickListener listener;
+    private AddCouponPopupWindow add;
 
     @Override
     protected void click() {
@@ -164,17 +165,22 @@ public class CouponSettingActivity extends InitActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.add_icon:
+                add_icon.setEnabled(false);
                 AddCoupon();
                 break;
             case R.id.add_tv:
+                add_tv.setEnabled(false);
                 AddCoupon();
                 break;
         }
     }
 
     private void AddCoupon() {
-        AddCouponPopupWindow add = new AddCouponPopupWindow(this, this, 0);
+        add = new AddCouponPopupWindow(this, this, 0);
         add.ScreenPopupWindow();
+
+        add_tv.setEnabled(true);
+        add_icon.setEnabled(true);
     }
 
     @Override

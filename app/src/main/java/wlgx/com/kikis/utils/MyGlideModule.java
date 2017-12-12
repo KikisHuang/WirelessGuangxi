@@ -30,4 +30,5 @@ public class MyGlideModule implements GlideModule {
     public void registerComponents(Context context, Glide glide) {
 
     }
+
 }

@@ -43,7 +43,6 @@ import static wlgx.com.kikis.utils.IntentUtils.goShopTypePage;
 import static wlgx.com.kikis.utils.IntentUtils.goUploadPhotoPage;
 import static wlgx.com.kikis.utils.JsonUtils.getCode;
 import static wlgx.com.kikis.utils.JsonUtils.getJsonSring;
-import static wlgx.com.kikis.utils.PhotoUtils.getMULTIPLEPhotoTag;
 import static wlgx.com.kikis.utils.SynUtils.setTitles;
 import static wlgx.com.kikis.view.CustomProgress.Cancle;
 import static wlgx.com.kikis.view.CustomProgress.Show;
@@ -140,8 +139,8 @@ public class ApplicationInActivity extends InitActivity implements View.OnClickL
                 goShopTypePage(this);
                 break;
             case R.id.upload_img_layout2:
-                getMULTIPLEPhotoTag(this, 1, 4411);
-            /*    new ActionSheetDialog(this).builder().
+//                getMULTIPLEPhotoTag(this, 1, 4411);
+                new ActionSheetDialog(this).builder().
                         addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                             @Override
                             public void onClick(int which) {
@@ -152,7 +151,7 @@ public class ApplicationInActivity extends InitActivity implements View.OnClickL
                     public void onClick(int which) {
                         goUploadPhotoPage(ApplicationInActivity.this, "1", "11");
                     }
-                }).show();*/
+                }).show();
                 break;
             case R.id.shop_address_layout:
                 goLocationPage(this);
@@ -192,8 +191,8 @@ public class ApplicationInActivity extends InitActivity implements View.OnClickL
                 }).show();
                 break;
             case R.id.upload_img_layout:
-                getMULTIPLEPhotoTag(this, 1, 440);
-           /*     new ActionSheetDialog(this).builder().
+//                getMULTIPLEPhotoTag(this, 1, 440);
+                new ActionSheetDialog(this).builder().
                         addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                             @Override
                             public void onClick(int which) {
@@ -204,11 +203,11 @@ public class ApplicationInActivity extends InitActivity implements View.OnClickL
                     public void onClick(int which) {
                         goUploadPhotoPage(ApplicationInActivity.this, "1", "0");
                     }
-                }).show();*/
+                }).show();
                 break;
             case R.id.shop_img:
-                getMULTIPLEPhotoTag(this, 1, 440);
-              /*  new ActionSheetDialog(this).builder().
+//                getMULTIPLEPhotoTag(this, 1, 440);
+                new ActionSheetDialog(this).builder().
                         addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                             @Override
                             public void onClick(int which) {
@@ -219,7 +218,7 @@ public class ApplicationInActivity extends InitActivity implements View.OnClickL
                     public void onClick(int which) {
                         goUploadPhotoPage(ApplicationInActivity.this, "1", "0");
                     }
-                }).show();*/
+                }).show();
                 break;
         }
     }
@@ -353,13 +352,16 @@ public class ApplicationInActivity extends InitActivity implements View.OnClickL
                         // TODO 压缩成功后调用，返回压缩后的图片文件
 //                        subscriber.onNext(file.getAbsolutePath());
                         Log.i(TAG, "onSuccess" + file.getAbsolutePath());
+
                         if (i == 0) {
                             logoFile = file;
                             Glide.with(ApplicationInActivity.this).load(file).centerCrop().into(shop_img);
+                            shop_img.setVisibility(View.VISIBLE);
                         }
                         if (i == 11) {
                             shop2File = file;
                             Glide.with(ApplicationInActivity.this).load(file).centerCrop().into(shop_img2);
+                            shop_img2.setVisibility(View.VISIBLE);
                         }
                         Cancle();
                     }
@@ -376,17 +378,22 @@ public class ApplicationInActivity extends InitActivity implements View.OnClickL
     @Override
     public void PhotoLBitmapistener(String path, Bitmap bitmap, int page) {
         if (page == 0) {
-            logoFile = new File(path);
-            Glide.with(ApplicationInActivity.this).load(path).centerCrop().into(shop_img);
-            shop_img.setVisibility(View.VISIBLE);
+            List<String> list = new ArrayList<>();
+            list.add(path.replace("file:",""));
+            Compress(list, 0);
+//            logoFile = new File(path);
+//            Glide.with(ApplicationInActivity.this).load(path).apply(options).into(shop_img);
         }
         if (page == 5) {
             UploadIcon(path);
         }
         if (page == 11) {
-            shop2File = new File(path);
-            Glide.with(ApplicationInActivity.this).load(path).centerCrop().into(shop_img2);
-            shop_img2.setVisibility(View.VISIBLE);
+            List<String> list = new ArrayList<>();
+            list.add(path.replace("file:",""));
+            Compress(list, 11);
+//            shop2File = new File(path);
+//            Glide.with(ApplicationInActivity.this).load(path).apply(options).into(shop_img2);
+
         }
 
     }
@@ -446,6 +453,7 @@ public class ApplicationInActivity extends InitActivity implements View.OnClickL
                         try {
                             int code = getCode(response);
                             if (code == 1) {
+
                                 oldimgUrl = getJsonSring(response);
                                 Log.i(TAG, "oldimgUrloldimgUrl ========= " + oldimgUrl);
                                 logo_img.setVisibility(View.VISIBLE);

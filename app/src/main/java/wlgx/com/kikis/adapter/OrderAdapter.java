@@ -85,11 +85,18 @@ public class OrderAdapter extends BaseAdapter {
             case 0:
                 goods_button.setText("查看");
                 goods_status.setText("未支付");
+                goods_status.setTextColor(context.getResources().getColor(R.color.gray4));
 //                goGoodsDetails(goods_button, blist.get(position).getId(), 1);
                 break;
             case 1:
                 goods_button.setText("查看");
-                goods_status.setText("已支付");
+                if(tag==3){
+                    goods_status.setText("待退款");
+                    goods_status.setTextColor(context.getResources().getColor(R.color.gray4));
+                }else {
+                    goods_status.setText("已支付");
+                    goods_status.setTextColor(context.getResources().getColor(R.color.green5));
+                }
 //                goGoodsDetails(goods_button, blist.get(position).getId(), 0);
                 break;
             case 2:
@@ -100,26 +107,31 @@ public class OrderAdapter extends BaseAdapter {
             case 10:
                 goods_button.setText("查看");
                 goods_status.setText("已接单");
+                goods_status.setTextColor(context.getResources().getColor(R.color.red3));
 //                goGoodsDetails(goods_button, blist.get(position).getId(), 0);
                 break;
             case -20:
                 goods_button.setText("查看");
                 goods_status.setText("已退款");
+                goods_status.setTextColor(context.getResources().getColor(R.color.gray4));
 //                goGoodsDetails(goods_button, blist.get(position).getId(), 0);
                 break;
             case -10:
                 goods_button.setText("查看");
                 goods_status.setText("已取消");
+                goods_status.setTextColor(context.getResources().getColor(R.color.gray4));
 //                goGoodsDetails(goods_button, blist.get(position).getId(), 0);
                 break;
             case -1:
                 goods_button.setText("查看");
                 goods_status.setText("支付失败");
+                goods_status.setTextColor(context.getResources().getColor(R.color.gray4));
 //                goGoodsDetails(goods_button, blist.get(position).getId(), 0);
                 break;
             case -2:
                 goods_button.setText("查看");
                 goods_status.setText("校验失败");
+                goods_status.setTextColor(context.getResources().getColor(R.color.gray4));
 //                goGoodsDetails(goods_button, blist.get(position).getId(), 0);
                 break;
         }

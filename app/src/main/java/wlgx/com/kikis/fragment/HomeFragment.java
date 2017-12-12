@@ -34,10 +34,13 @@ import static wlgx.com.kikis.utils.IntentUtils.goCouponPage;
 import static wlgx.com.kikis.utils.IntentUtils.goGoodsListPage;
 import static wlgx.com.kikis.utils.IntentUtils.goLoginPage;
 import static wlgx.com.kikis.utils.IntentUtils.goOrderPage;
+import static wlgx.com.kikis.utils.IntentUtils.goQRCodePage;
+import static wlgx.com.kikis.utils.IntentUtils.goSettlementPage;
 import static wlgx.com.kikis.utils.IntentUtils.goShopCheckPage;
 import static wlgx.com.kikis.utils.IntentUtils.goShopListPage;
 import static wlgx.com.kikis.utils.IntentUtils.goStatisPage;
 import static wlgx.com.kikis.utils.JsonUtils.getCode;
+import static wlgx.com.kikis.utils.JsonUtils.getJsonInt;
 import static wlgx.com.kikis.utils.JsonUtils.getJsonOb;
 import static wlgx.com.kikis.utils.JsonUtils.getJsonSring;
 import static wlgx.com.kikis.utils.SynUtils.getVersionCode;
@@ -58,7 +61,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private TextView turnover_tv, goods_rate_tv, page_view_tv, shop_name;
 
     private ImageView img1, img2, img3, img4, img5, img6;
-    private TextView name1, name2, name3, name4, name5, name6;
+    private TextView name1, name2, name3, name4, name5, name6, corner_mark_tv;
     private LinearLayout layout1, layout2, layout3, layout4, layout5, layout6, statis_layout;
     public static MyFragmetnListener listener;
     private int level = -1;
@@ -142,11 +145,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                             if (code == 1)
                                 goGoodsListPage(getActivity());
                             else if (code == 0) {
-                                ToastUtil.toast2_bottom(getActivity(), "通过资质认证后才可上传商品信息！！！");
-                                goShopCheckPage(getActivity());
-                            } else if (code == 2)
-                                new AlertDialog(getActivity()).builder().setTitle("提示").setCancelable(true).setMsg("资质审核中").setNegativeButton("确定", null).show();
+//                                ToastUtil.toast2_bottom(getActivity(), "通过资质认证后才可上传商品信息！！！");
+                                new AlertDialog(getActivity()).builder().setTitle("提示").setCancelable(true).setMsg("如果未认证店铺资质则无法被下单").setNegativeButton("暂不认证", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        goGoodsListPage(getActivity());
+                                    }
+                                }).setPositiveButton("前往认证", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        goShopCheckPage(getActivity());
+                                    }
+                                }).show();
 
+                            } else if (code == 2)
+                                goGoodsListPage(getActivity());
+//                                new AlertDialog(getActivity()).builder().setTitle("提示").setCancelable(true).setMsg("资质审核中").setNegativeButton("确定", null).show();
                             else
                                 ToastUtil.ToastErrorMsg(getActivity(), response, code);
                         } catch (Exception e) {
@@ -183,6 +197,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         img1 = (ImageView) top_layout.findViewById(R.id.img1);
         img2 = (ImageView) top_layout.findViewById(R.id.img2);
         img3 = (ImageView) top_layout.findViewById(R.id.img3);
+        corner_mark_tv = (TextView) top_layout.findViewById(R.id.corner_mark_tv);
+
         img4 = (ImageView) bottom_layout.findViewById(R.id.img1);
         img5 = (ImageView) bottom_layout.findViewById(R.id.img2);
         img6 = (ImageView) bottom_layout.findViewById(R.id.img3);
@@ -229,7 +245,79 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             getShopData(MzFinal.URL + MzFinal.ORDERRATIO, 1);
             getShopData(MzFinal.URL + MzFinal.BROWSE, 2);
             getShopData(MzFinal.URL + MzFinal.BROWSE, 3);
+            getOrderCornerMark();
         }
+    }
+
+    private void getOrderCornerMark() {
+        /**
+         * 获取待处理退款角标数量;
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URL + MzFinal.GETMYREFUNDORDERCOUNT)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                int count = getJsonInt(response);
+                                getOrderCornerMarkAgain(count);
+                            } else
+                                ToastUtil.ToastErrorMsg(getActivity(), response, code);
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+    }
+
+    private void getOrderCornerMarkAgain(final int c) {
+        /**
+         *  待接单(已付款)订单数(角标数);
+         */
+        OkHttpUtils
+                .get()
+                .url(MzFinal.URL + MzFinal.GETMYPAYORDERCOUNT)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
+                .tag(this)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ToastUtil.toast2_bottom(getActivity(), "网络不顺畅...");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            int code = getCode(response);
+                            if (code == 1) {
+                                int PayOrderCount = getJsonInt(response);
+                                if (PayOrderCount + c > 0 && PayOrderCount + c < 99) {
+                                    corner_mark_tv.setText(String.valueOf(PayOrderCount + c));
+                                    corner_mark_tv.setVisibility(View.VISIBLE);
+                                } else if (PayOrderCount + c > 99) {
+                                    corner_mark_tv.setText(String.valueOf(99));
+                                    corner_mark_tv.setVisibility(View.VISIBLE);
+                                } else
+                                    corner_mark_tv.setVisibility(View.GONE);
+                            }
+
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
     }
 
     private void getShopName() {
@@ -367,13 +455,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
                 goStatisPage(getActivity());
                 break;
             case R.id.gathering_ll:
-                developing();
+                goQRCodePage(getActivity());
                 break;
             case R.id.withdraw_details_ll:
-                developing();
+                goSettlementPage(getActivity(),0);
                 break;
             case R.id.reconciliation_ll:
-                developing();
+                goSettlementPage(getActivity(),1);
                 break;
         }
     }

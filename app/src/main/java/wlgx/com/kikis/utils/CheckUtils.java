@@ -7,6 +7,7 @@ import org.json.JSONException;
 
 import okhttp3.Call;
 import wlgx.com.kikis.listener.CheckListener;
+import wlgx.com.kikis.save.SPreferences;
 
 import static wlgx.com.kikis.utils.JsonUtils.getCode;
 
@@ -20,6 +21,7 @@ public class CheckUtils {
         OkHttpUtils.get()
                 .url(URL)
                 .addParams("name", name)
+                .addParams(MzFinal.KEY, SPreferences.getUserToken())
                 .build()
                 .execute(new StringCallback() {
                     @Override

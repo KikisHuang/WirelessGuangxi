@@ -14,6 +14,15 @@ public class PieChartBean {
     private Object type;
     private String name;
     private double price;
+    private String headImg;
+
+    public String getHeadImg() {
+        return headImg;
+    }
+
+    public void setHeadImg(String headImg) {
+        this.headImg = headImg;
+    }
 
     public Object getType() {
         return type;

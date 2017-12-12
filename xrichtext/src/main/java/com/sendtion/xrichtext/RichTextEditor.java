@@ -292,7 +292,7 @@ public class RichTextEditor extends ScrollView {
     public void addImageViewAtIndex(final int index, String imagePath) {
         final RelativeLayout imageLayout = createImageLayout();
         DataImageView imageView = (DataImageView) imageLayout.findViewById(R.id.edit_imageView);
-        Glide.with(getContext()).load(imagePath).crossFade().centerCrop().into(imageView);
+        Glide.with(getContext()).load(imagePath).centerCrop().into(imageView);
         imageView.setAbsolutePath(imagePath);//保留这句，后面保存数据会用
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);//裁剪剧中
 

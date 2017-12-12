@@ -16,7 +16,7 @@
         android:layout_marginLeft="10dp"
         android:padding="10dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/icon_img"
             android:layout_width="60dp"
             android:layout_height="60dp"

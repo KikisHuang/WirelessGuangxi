@@ -247,6 +247,7 @@ public class LocationActivity extends Activity implements LocationSource, AMapLo
         otMarkerOptions.icon(BitmapDescriptorFactory.fromResource(R.mipmap.icon_gcoding));
         otMarkerOptions.position(latLng);
         aMap.addMarker(otMarkerOptions);
+
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(latLng));
 
     }

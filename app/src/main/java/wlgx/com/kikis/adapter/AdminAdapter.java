@@ -5,14 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import de.hdodenhof.circleimageview.CircleImageView;
 import wlgx.com.kikis.R;
 import wlgx.com.kikis.bean.AdminBean;
 import wlgx.com.kikis.listener.addImgListener;
@@ -59,7 +58,7 @@ public class AdminAdapter extends BaseAdapter {
         if (root == null)
             root = inflater.inflate(R.layout.admin_item, null);
 
-        ImageView icon_img = OverallViewHolder.ViewHolder.get(root, R.id.icon_img);
+        CircleImageView icon_img = OverallViewHolder.ViewHolder.get(root, R.id.icon_img);
         TextView name = OverallViewHolder.ViewHolder.get(root, R.id.name_tv);
         TextView phone = OverallViewHolder.ViewHolder.get(root, R.id.phone_tv);
 
@@ -67,7 +66,7 @@ public class AdminAdapter extends BaseAdapter {
         name.setText(data.get(position).getNickname());
         phone.setText(data.get(position).getPhone());
 
-        Glide.with(context).load(R.mipmap.test_icon).bitmapTransform(new CropCircleTransformation(context)).into(icon_img);
+        Glide.with(context).load(R.mipmap.test_icon).into(icon_img);
 
         root.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

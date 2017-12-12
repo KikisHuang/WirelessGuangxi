@@ -227,6 +227,10 @@
 }
 ####RxJava####
 
+####ucrop####
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
 ####极光推送####
 -dontoptimize
 -dontpreverify

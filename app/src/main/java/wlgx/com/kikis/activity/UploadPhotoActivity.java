@@ -14,6 +14,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.yalantis.ucrop.UCrop;
+
 import java.io.File;
 
 import wlgx.com.kikis.fragment.MyFragment;
@@ -112,7 +114,7 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
             if (takePictureIntent.resolveActivity(this.getPackageManager()) != null) {//判断是否有相机应用
                 File imagePath = new File(iRootPath, System.currentTimeMillis() + ".jpg");
                 Uri photoURI = getUriForFile(this, this.getPackageName() + ".fileprovider", imagePath);
-
+                Log.i(TAG,"7.0路径 ====="+photoURI.toString());
                 SharedPreferences preferences = this.getSharedPreferences(
                         "PicturesUri", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = preferences.edit();
@@ -149,7 +151,17 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
+            final Uri resultUri = UCrop.getOutput(data);
+            listener.onSucceed(String.valueOf(resultUri), null);
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            Log.i(TAG, "裁剪异常");
+            listener.onFail();
+            final Throwable cropError = UCrop.getError(data);
+        }
+
         if (resultCode == Activity.RESULT_OK) {
+
             Uri uri = null;
             String urlSTR;
 
@@ -200,9 +212,13 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
 //        pathstr = CompressIamge.copy(pathstr);
 
         Log.i(TAG, "doAfterGetBitPath   pathStr   ===" + pathstr);
-        if (page==1||page==5) {
+        if (page == 1 || page == 5) {
             CutUtil cu = new CutUtil();
             cu.CutBitmap(pathstr, this, "info");
+        } else if (page == 0 || page == 11) {
+            CutUtil cu = new CutUtil();
+            cu.CutBackBitmap(pathstr, this, "info");
+
         } else {
             Bitmap bitmap = CompressIamge.getBitmapFromUri2(pathstr, this);
             LruCacheUtils lcu = new LruCacheUtils();
@@ -219,6 +235,7 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
         }
     }
 
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -231,13 +248,16 @@ public class UploadPhotoActivity extends Activity implements CutPhotoListener, D
 
         setResult(1012);
         if (ChangeShopDataActivity.listener != null)
-            ChangeShopDataActivity.listener.PhotoLBitmapistener(url, null,page);
+            ChangeShopDataActivity.listener.PhotoLBitmapistener(url, null, page);
 
         if (ApplicationInActivity.listener != null)
-            ApplicationInActivity.listener.PhotoLBitmapistener(url, null,page);
+            ApplicationInActivity.listener.PhotoLBitmapistener(url, null, page);
 
         if (MyFragment.photolistener != null)
-            MyFragment.photolistener.PhotoLBitmapistener(url, null,99);
+            MyFragment.photolistener.PhotoLBitmapistener(url, null, 99);
+
+        if (QrCodeActivity.listener != null)
+            QrCodeActivity.listener.PhotoLBitmapistener(url, null, page);
 
         Finish(UploadPhotoActivity.this);
     }

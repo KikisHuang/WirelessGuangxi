@@ -32,8 +32,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 import wlgx.com.kikis.R;
 import wlgx.com.kikis.adapter.AddImgAdapter;
 import wlgx.com.kikis.bean.BankBean;
@@ -88,9 +90,9 @@ public class ChangeShopDataActivity extends InitActivity implements View.OnClick
     private String provinceId = "";
     private String latitude = "";
     private String longitude = "";
-    private ImageView back_img, logo_img, location_img;
+    private ImageView back_img, location_img;
     private File logoFile = null;
-
+    private CircleImageView logo_img;
     private CustomGridView gridView;
     private List<shopImgs> list;
     private List<shopImgs> oldImg;
@@ -226,7 +228,7 @@ public class ChangeShopDataActivity extends InitActivity implements View.OnClick
             time_list.add(i + "");
         }
         //适配器
-        arr_adapter = new ArrayAdapter<String>(this, R.layout.adapter_mytopactionbar_spinner, time_list);
+//        arr_adapter = new ArrayAdapter<String>(this, R.layout.adapter_mytopactionbar_spinner, time_list);
 
         arr_adapter = new ArrayAdapter<String>(this, R.layout.adapter_mytopactionbar_spinner, time_list) {
             @Override
@@ -325,7 +327,7 @@ public class ChangeShopDataActivity extends InitActivity implements View.OnClick
                                 end_sp.setSelection(bb.getWorkingTimeEnd(), true);
 
 
-                                Glide.with(getApplicationContext()).load(bb.getLogoUrl()).bitmapTransform(new CropCircleTransformation(ChangeShopDataActivity.this)).into(logo_img);
+                                Glide.with(getApplicationContext()).load(bb.getLogoUrl()).into(logo_img);
                                 list.clear();
                                 oldImg.clear();
                                 shopImgs si = new shopImgs();
@@ -333,17 +335,17 @@ public class ChangeShopDataActivity extends InitActivity implements View.OnClick
                                 list.add(si);
 
 //                                if (bb.getShopImgs().size() > 0) {
-                                    oldImg = bb.getShopImgs();
+                                oldImg = bb.getShopImgs();
 
-                                    for (int i = 0; i < bb.getShopImgs().size(); i++) {
-                                        list.add(bb.getShopImgs().get(i));
-                                    }
-                                    if (adapter != null)
-                                        adapter.notifyDataSetChanged();
-                                    else {
-                                        adapter = new AddImgAdapter(ChangeShopDataActivity.this, list, add);
-                                        gridView.setAdapter(adapter);
-                                    }
+                                for (int i = 0; i < bb.getShopImgs().size(); i++) {
+                                    list.add(bb.getShopImgs().get(i));
+                                }
+                                if (adapter != null)
+                                    adapter.notifyDataSetChanged();
+                                else {
+                                    adapter = new AddImgAdapter(ChangeShopDataActivity.this, list, add);
+                                    gridView.setAdapter(adapter);
+                                }
 //                                }
 
                             } else
@@ -485,20 +487,61 @@ public class ChangeShopDataActivity extends InitActivity implements View.OnClick
 //            } else
 //                NewlyNImgs(MzFinal.URL + MzFinal.ADDSHOPIMG, new File(path));
             logoFile = new File(path);
-            Glide.with(getApplicationContext()).load(path).bitmapTransform(new CropCircleTransformation(ChangeShopDataActivity.this)).into(logo_img);
+            Glide.with(getApplicationContext()).load(path).into(logo_img);
 
         }
         //图组回调
-        if (page == 2) {
-            if (OldPos <= oldImg.size()) {
+        if (page == 11) {
+            Compress(path.replace("file:",""));
+           /* if (OldPos <= oldImg.size()) {
+
                 //修改;
                 ChangeImgs(MzFinal.URL + MzFinal.MODIFYSHOPIMG, new File(path), oldImg.get(OldPos).getId());
             } else {
                 //新增;
                 NewlyNImgs(MzFinal.URL + MzFinal.ADDSHOPIMG, new File(path));
-            }
+            }*/
         }
 
+    }
+
+
+    /**
+     * 压缩
+     */
+    private void Compress(final String str) {
+        Luban.with(this)
+                .load(str)                                   // 传人要压缩的图片列表
+                .ignoreBy(300)                               // 忽略不压缩图片的大小
+//                .setTargetDir(FileManager.getSaveFilePath() + "gxLuban")// 设置压缩后文件存储位置
+                .setCompressListener(new OnCompressListener() { //设置回调
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        // TODO 压缩成功后调用，返回压缩后的图片文件
+//                        subscriber.onNext(file.getAbsolutePath());
+                        Log.i(TAG, "onSuccess" + file.getAbsolutePath());
+                        if (OldPos <= oldImg.size()) {
+                            //修改;
+                            ChangeImgs(MzFinal.URL + MzFinal.MODIFYSHOPIMG, file, oldImg.get(OldPos).getId());
+                        } else {
+                            //新增;
+                            NewlyNImgs(MzFinal.URL + MzFinal.ADDSHOPIMG, file);
+                        }
+                        Cancle();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过程出现问题时调用
+                        ToastUtil.toast2_bottom(ChangeShopDataActivity.this, "图片压缩异常");
+                        Cancle();
+                    }
+                }).launch();    //启动压缩
     }
 
     /**
@@ -546,6 +589,7 @@ public class ChangeShopDataActivity extends InitActivity implements View.OnClick
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
+                        Log.i(TAG, "Exception ===" + e);
                         ToastUtil.toast2_bottom(ChangeShopDataActivity.this, "网络不顺畅导致上传图片失败...");
                         Cancle();
                     }
@@ -609,12 +653,12 @@ public class ChangeShopDataActivity extends InitActivity implements View.OnClick
                 addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        goUploadPhotoPage(ChangeShopDataActivity.this, "0", "2");
+                        goUploadPhotoPage(ChangeShopDataActivity.this, "0", "11");
                     }
                 }).addSheetItem("相机", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                goUploadPhotoPage(ChangeShopDataActivity.this, "1", "2");
+                goUploadPhotoPage(ChangeShopDataActivity.this, "1", "11");
             }
         }).show();
     }

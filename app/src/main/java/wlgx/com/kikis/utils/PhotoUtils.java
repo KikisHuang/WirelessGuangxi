@@ -15,7 +15,7 @@ public class PhotoUtils {
      *
      * @param ac
      */
-    public static void getMULTIPLEPhoto(Activity ac,int num) {
+    public static void getMULTIPLEPhoto(Activity ac, int num) {
         //调用第三方图库选择
         PhotoPicker.builder()
                 .setPhotoCount(num)//可选择图片数量
@@ -24,12 +24,13 @@ public class PhotoUtils {
                 .setPreviewEnabled(true)//是否可以预览
                 .start(ac, PhotoPicker.REQUEST_CODE);
     }
+
     /**
      * 单选、多选带标识符;
      *
      * @param ac
      */
-    public static void getMULTIPLEPhotoTag(Activity ac,int num,int tag) {
+    public static void getMULTIPLEPhotoTag(Activity ac, int num, int tag) {
         //调用第三方图库选择
         PhotoPicker.builder()
                 .setPhotoCount(num)//可选择图片数量
@@ -38,4 +39,5 @@ public class PhotoUtils {
                 .setPreviewEnabled(true)//是否可以预览
                 .start(ac, tag);
     }
+
 }

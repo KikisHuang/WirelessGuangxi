@@ -175,6 +175,7 @@ public class ShopCheckActivity extends InitActivity implements View.OnClickListe
 //                        subscriber.onNext(file.getAbsolutePath());
                         Log.i(TAG, "onSuccess" + f.getAbsolutePath());
                         switch (i) {
+
                             case 1:
                                 file = f;
                                 Glide.with(ShopCheckActivity.this).load(file).centerCrop().into(check_img);

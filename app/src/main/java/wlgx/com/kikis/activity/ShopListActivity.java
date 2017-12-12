@@ -1,7 +1,6 @@
 package wlgx.com.kikis.activity;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -12,7 +11,7 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import org.json.JSONObject;
 
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.Call;
 import wlgx.com.kikis.R;
 import wlgx.com.kikis.bean.BankBean;
@@ -31,7 +30,7 @@ import static wlgx.com.kikis.utils.SynUtils.setTitles;
  */
 public class ShopListActivity extends InitActivity implements View.OnClickListener {
     private static final String TAG = "LoginActivity";
-    private ImageView icon_img;
+    private CircleImageView icon_img;
     private RelativeLayout layout;
     private TextView add_tv,name_tv,address_tv;
 
@@ -85,9 +84,9 @@ public class ShopListActivity extends InitActivity implements View.OnClickListen
                                 BankBean bb = new Gson().fromJson(String.valueOf(ob), BankBean.class);
 
                                 if (bb.getShopImgs().size() > 0)
-                                    Glide.with(getApplicationContext()).load(bb.getLogoUrl()).bitmapTransform(new CropCircleTransformation(ShopListActivity.this)).into(icon_img);
+                                    Glide.with(getApplicationContext()).load(bb.getLogoUrl()).into(icon_img);
                                 else
-                                    Glide.with(getApplicationContext()).load(R.mipmap.test_icon).bitmapTransform(new CropCircleTransformation(ShopListActivity.this)).into(icon_img);
+                                    Glide.with(getApplicationContext()).load(R.mipmap.test_icon).into(icon_img);
 
                                 name_tv.setText(bb.getName());
                                 address_tv.setText(bb.getAddress());

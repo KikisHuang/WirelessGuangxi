@@ -20,7 +20,9 @@ import wlgx.com.kikis.activity.MainActivity;
 import wlgx.com.kikis.activity.MyActivity;
 import wlgx.com.kikis.activity.MyOrderActivity;
 import wlgx.com.kikis.activity.OrderDetailsActivity;
+import wlgx.com.kikis.activity.QrCodeActivity;
 import wlgx.com.kikis.activity.RefundOrderDetailsActivity;
+import wlgx.com.kikis.activity.SettlementActivity;
 import wlgx.com.kikis.activity.ShopCheckActivity;
 import wlgx.com.kikis.activity.ShopListActivity;
 import wlgx.com.kikis.activity.ShopPreviewActivity;
@@ -58,6 +60,27 @@ public class IntentUtils {
     }
 
     /**
+     * 结算记录、对账页面页面;
+     *
+     * @param context 上下文;
+     * @param Tag     0结算记录 ，1对账;
+     */
+    public static void goSettlementPage(Context context, int Tag) {
+        Intent intent = new Intent(context, SettlementActivity.class);
+        intent.putExtra("page_tag", String.valueOf(Tag));
+        startPage(context, intent);
+    }
+    /**
+     * 二维码收款页面;
+     *
+     * @param context 上下文;
+     */
+    public static void goQRCodePage(Context context) {
+        Intent intent = new Intent(context, QrCodeActivity.class);
+        startPage(context, intent);
+    }
+
+    /**
      * 订单页面;
      *
      * @param context 上下文;
@@ -66,14 +89,15 @@ public class IntentUtils {
         Intent intent = new Intent(context, MyOrderActivity.class);
         startPage(context, intent);
     }
+
     /**
      * 获取退款订单页面;
      *
      * @param context 上下文;
      */
-    public static void goRefundOrderPage(Context context,String id) {
+    public static void goRefundOrderPage(Context context, String id) {
         Intent intent = new Intent(context, RefundOrderDetailsActivity.class);
-        intent.putExtra("refund_id",id);
+        intent.putExtra("refund_id", id);
         startPage(context, intent);
     }
 
@@ -126,6 +150,7 @@ public class IntentUtils {
         Intent intent = new Intent(context, ChangeShopDataActivity.class);
         startPage(context, intent);
     }
+
     /**
      * 资质认证页面;
      *

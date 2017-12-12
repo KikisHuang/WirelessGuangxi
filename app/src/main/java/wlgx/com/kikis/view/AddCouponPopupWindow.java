@@ -101,14 +101,14 @@ public class AddCouponPopupWindow implements View.OnClickListener {
             click();
             getType();
 
-            backgroundAlpha(0.7f, mContext);
+//            backgroundAlpha(0.7f, mContext);
             popupWindow.setFocusable(true);
             popupWindow.setOutsideTouchable(true);
             popupWindow.setBackgroundDrawable(new ColorDrawable(0));
             popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
-                    backgroundAlpha(1.0f, mContext);
+//                    backgroundAlpha(1.0f, mContext);
                     popupWindow.dismiss();
                     popupWindow = null;
                     mContext = null;
